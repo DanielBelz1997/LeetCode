@@ -1,0 +1,11 @@
+SELECT
+    idshav,
+    taf,
+    mes,
+    id_mi,
+    CONCAT(taf, '_', COALESCE(mes, 'NULL'), '_',
+           DENSE_RANK() OVER (ORDER BY taf, COALESCE(mes, 'NULL')),
+           '_', ROW_NUMBER() OVER (PARTITION BY taf, COALESCE(mes, 'NULL'), id_mi ORDER BY idshav)
+    ) AS group_identifier
+FROM
+	shav;
