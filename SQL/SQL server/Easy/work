@@ -1,3 +1,5 @@
+for grouping all kinds of diifrent row toghether or dividing them:
+
 SELECT
     idshav,
     taf,
@@ -9,3 +11,21 @@ SELECT
     ) AS group_identifier
 FROM
 	shav;
+
+
+-------------------------------------------------------------------------
+
+for before inserting some rows with date, tell the inserter that this person is withing some places:
+
+SELECT *
+FROM SampleTable
+WHERE person = @newPerson
+    AND (
+        (@newStartDate BETWEEN start_date AND end_date)  -- New start date falls within existing date range
+        OR
+        (@newEndDate BETWEEN start_date AND end_date)    -- New end date falls within existing date range
+        OR
+        (start_date BETWEEN @newStartDate AND @newEndDate)  -- Existing start date falls within new date range
+        OR
+        (end_date BETWEEN @newStartDate AND @newEndDate)    -- Existing end date falls within new date range
+    );
